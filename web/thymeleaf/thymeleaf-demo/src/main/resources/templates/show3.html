@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <p>
+        今天是:
+        <span th:text="${#dates.format(today, 'yyyy-MM-dd')}">2018-04-25</span>
+    </p>
+    <p>
+        <span th:text="'thymeleaf'">template</span>
+    </p>
+    <p>
+        今年是<span th:text="2019">1999</span>
+    </p>
+    <p>
+        两年之后是<span th:text="2019 + 2">2001</span>
+    </p>
+    <div th:if="true">
+        你选了true
+    </div>
+</body>
+</html>

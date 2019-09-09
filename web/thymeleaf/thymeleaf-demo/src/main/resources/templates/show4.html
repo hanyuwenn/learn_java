@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <!--循环-->
+    <table>
+        <tr th:each="user,stat : ${users}">
+            <td th:text="${stat.index}">0</td>
+            <td th:text="${user.name}">Onions</td>
+            <td th:text="${user.age}">18</td>
+            <!--switch-->
+            <div th:switch="${user.age}">
+                <td th:case="11">小</td>
+                <td th:case="12">中</td>
+                <td th:case="13">大</td>
+            </div>
+            <!--判断-->
+            <td th:if="${user.name} == 'ming'">管理员</td>
+        </tr>
+    </table>
+</body>
+</html>
