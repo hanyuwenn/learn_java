@@ -1,0 +1,29 @@
+package com.baozi.direct;
+
+import com.baozi.util.ConnectionUtil;
+import com.rabbitmq.client.*;
+
+import java.io.IOException;
+
+public class Recv {
+
+    private static final String EXCHANGE_NAME = "direct";
+    private static final String QUEUE_NAME = "direct_recv_queue_1";
+
+    public static void main(String[] args) throws Exception {
+        Connection connection = ConnectionUtil.getConnection();
+        Channel channel = connection.createChannel();
+        channel.queueDeclare(QUEUE_NAME, false, false, false, null);
+        channel.queueBind(QUEUE_NAME, EXCHANGE_NAME, "update");
+        channel.queueBind(QUEUE_NAME, EXCHANGE_NAME, "delete");
+        DefaultConsumer consumer = new DefaultConsumer(channel) {
+            @Override
+            public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
+                String msg = new String(body);
+                System.out.println(" [消费者1] received : " + msg + "!");
+            }
+        };
+        channel.basicConsume(QUEUE_NAME, true, consumer);
+    }
+
+}
